@@ -80,6 +80,7 @@ def build_nice_OPdict(src: dict, lipid: Lipid) -> dict:
     :param lipid: Lipid object
     :return: nicely formatted OP dictionary
     """
+
     # Helper function to convert NaN to None for better JSON compatibility in output
     def _rnan(x: float) -> float | None:
         return None if x != x else x
@@ -94,10 +95,12 @@ def build_nice_OPdict(src: dict, lipid: Lipid) -> dict:
             if frag_c not in r:
                 r[frag_c] = []
             r[frag_c].append(
-                {"C": atom_c, 
-                 "H": atom_h, 
-                 "OP": _rnan(opvals[0]), 
-                 "STD": _rnan(opvals[1]) if len(opvals) > 1 else None},
+                {
+                    "C": atom_c,
+                    "H": atom_h,
+                    "OP": _rnan(opvals[0]),
+                    "STD": _rnan(opvals[1]) if len(opvals) > 1 else None,
+                },
             )
             r[frag_c].sort(key=lambda x: x["C"])
         return r
