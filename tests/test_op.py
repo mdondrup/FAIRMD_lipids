@@ -76,7 +76,7 @@ class TestBuildNiceOPdict:
         check.is_true(has_c("g3", rdict["glycerol backbone"]))
 
     # Define the condition (True when running in GitHub Actions)
-    IN_GITHUB_ACTIONS = os.getenv("GITHUB_ACTIONS") == "true"
+    IN_GITHUB_ACTIONS = os.getenv("GITHUB_ACTIONS") == "true" or os.getenv("CI") == "true"
 
     @pytest.mark.skipif(IN_GITHUB_ACTIONS, reason="Skipping this test in GitHub Actions")
     def test_build_nice_OPdict_with_all_experiments(self, monkeypatch, tmpdir):
