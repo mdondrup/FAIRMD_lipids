@@ -78,7 +78,9 @@ class TestBuildNiceOPdict:
     # Define the condition (True when running in GitHub Actions)
     IN_GITHUB_ACTIONS = os.getenv("GITHUB_ACTIONS") == "true" or os.getenv("CI") == "true"
 
-    @pytest.mark.skip(reason="Skipping test that runs on all experiments because of access issues in GitHub Actions environment. This test should be re-enabled once the data access issue is resolved.")
+    @pytest.mark.skip(
+        reason="Skipping test that runs on all experiments because of access issues in GitHub Actions environment. This test should be re-enabled once the data access issue is resolved."
+    )
     def test_build_nice_OPdict_with_all_experiments(self, monkeypatch, tmpdir):
         """Test build_nice_OPdict with all available experiments from ExperimentCollection.
 
