@@ -17,7 +17,6 @@ import sys
 import warnings
 import numpy as np
 import pytest
-from fairmd.lipids.experiment import ExperimentCollection
 import pytest_check as check
 
 # run only on sim2 mocking data
