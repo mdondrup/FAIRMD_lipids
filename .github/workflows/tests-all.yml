@@ -31,7 +31,7 @@ jobs:
 
     - name: run Python tests
       run: |
-        tox -e tests-all -r
+        tox -e tests-all
         
     - name: generate coverage.xml
       run: coverage xml
