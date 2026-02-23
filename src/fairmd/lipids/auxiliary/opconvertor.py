@@ -63,9 +63,8 @@ class NamingRegistry:
 
         def _h_renamer(row: dict) -> dict:
             match = re.match(r"M_.+H([1-4])", row["H"])
-            if match and len(match.groups()) == 1:
-                idx = int(match[1])
-                row["H"] = str(idx)
+            idx = int(match[1])
+            row["H"] = str(idx)
             return row
 
         cls._register("_all_", _h_renamer)
@@ -81,7 +80,8 @@ def build_nice_OPdict(src: dict, lipid: Lipid) -> dict:
     :return: nicely formatted OP dictionary
     """
 
-    # Helper function to convert NaN to None for better JSON compatibility in output
+    # Helper function to convert NaN to None for better 
+    # JSON compatibility in output
     def _rnan(x: float) -> float | None:
         return None if x != x else x
 
@@ -90,7 +90,7 @@ def build_nice_OPdict(src: dict, lipid: Lipid) -> dict:
         for apair, opvals in src.items():
             atom_c, atom_h = apair.split(" ")
             if atom_c not in mdict:
-                continue
+                raise ValueError(f"Atom {atom_c} not found in mapping dictionary.")
             frag_c = mdict[atom_c].get("FRAGMENT", "total")
             if frag_c not in r:
                 r[frag_c] = []
@@ -98,7 +98,7 @@ def build_nice_OPdict(src: dict, lipid: Lipid) -> dict:
                 {
                     "C": atom_c,
                     "H": atom_h,
-                    "OP": _rnan(opvals[0]),
+                    "OP": opvals[0],
                     "STD": _rnan(opvals[1]) if len(opvals) > 1 else None,
                 },
             )
