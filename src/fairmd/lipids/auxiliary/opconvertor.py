@@ -47,6 +47,8 @@ class NamingRegistry:
     def _initialize(cls):
         def _snX_c_renamer(row: dict) -> dict:
             match = re.match(r"M_G[12]C([0-9]{1,2})_M", row["C"])
+            if not match or len(match.groups()) < 1:
+                raise ValueError(f"Unexpected C format: {row['C']}")
             idx = int(match[1])
             row["C"] = str(idx - 1)
             return row
@@ -55,6 +57,8 @@ class NamingRegistry:
 
         def _gbb_c_renamer(row: dict) -> dict:
             match = re.match(r"M_G([1-3])_M", row["C"])
+            if not match or len(match.groups()) < 1:
+                raise ValueError(f"Unexpected C format: {row['C']}")
             idx = int(match[1])
             row["C"] = f"g{idx}"
             return row
@@ -63,8 +67,12 @@ class NamingRegistry:
 
         def _h_renamer(row: dict) -> dict:
             match = re.match(r"M_.+H([1-4])", row["H"])
+            if not match or len(match.groups()) < 1:
+                raise ValueError(f"Unexpected H format: {row['H']}")
             idx = int(match[1])
             row["H"] = str(idx)
+           
+
             return row
 
         cls._register("_all_", _h_renamer)
