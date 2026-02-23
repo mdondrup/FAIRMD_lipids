@@ -71,7 +71,6 @@ class NamingRegistry:
                 raise ValueError(f"Unexpected H format: {row['H']}")
             idx = int(match[1])
             row["H"] = str(idx)
-           
 
             return row
 
@@ -88,7 +87,7 @@ def build_nice_OPdict(src: dict, lipid: Lipid) -> dict:
     :return: nicely formatted OP dictionary
     """
 
-    # Helper function to convert NaN to None for better 
+    # Helper function to convert NaN to None for better
     # JSON compatibility in output
     def _rnan(x: float) -> float | None:
         return None if x != x else x
